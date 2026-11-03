@@ -1,11 +1,10 @@
-ARG BUILD_FROM
+ARG BUILD_FROM=ghcr.io/home-assistant/base-debian:trixie
 FROM $BUILD_FROM
 
 # Set shell
 SHELL ["/bin/bash", "-o", "pipefail", "-c"]
 
 # Install deCONZ dependencies
-ARG BUILD_ARCH
 RUN \
     set -x \
     && apt-get update \
@@ -38,17 +37,12 @@ RUN \
     && rm -rf /var/lib/apt/lists/*
 
 # Install deCONZ
-ARG DECONZ_VERSION
+ARG DECONZ_VERSION=2.33.2
+ARG TARGETARCH
 RUN \
     set -x \
-    && if [ "${BUILD_ARCH}" = "aarch64" ]; \
-        then \
-            curl -q -L -o /deconz.deb \
-                "https://github.com/dresden-elektronik/deconz-rest-plugin/releases/download/v${DECONZ_VERSION}/deconz-qt6_${DECONZ_VERSION}_arm64.deb"; \
-        else \
-            curl -q -L -o /deconz.deb \
-                "https://github.com/dresden-elektronik/deconz-rest-plugin/releases/download/v${DECONZ_VERSION}/deconz-qt6_${DECONZ_VERSION}_amd64.deb"; \
-        fi \
+    && curl -q -L -o /deconz.deb \
+        "https://github.com/dresden-elektronik/deconz-rest-plugin/releases/download/v${DECONZ_VERSION}/deconz-qt6_${DECONZ_VERSION}_${TARGETARCH}.deb" \
     && dpkg -i /deconz.deb \
     && rm -f /deconz.deb \
     && chown root:root /usr/bin/deCONZ* \
@@ -57,3 +51,9 @@ RUN \
 COPY rootfs /
 
 ENV S6_STAGE2_HOOK=/etc/s6-overlay/scripts/enable-check.sh
+
+LABEL \
+    org.opencontainers.image.title="Home Assistant App: deCONZ" \
+    org.opencontainers.image.description="Control a Zigbee network with ConBee or RaspBee by dresden elektronik" \
+    org.opencontainers.image.source="https://github.com/home-assistant/app-deconz" \
+    org.opencontainers.image.licenses="Apache License 2.0"

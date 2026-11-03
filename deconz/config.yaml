@@ -1,10 +1,10 @@
 ---
-version: 8.8.0
+version: dev
 slug: deconz
 name: deCONZ
 description: >-
   Control a Zigbee network with ConBee or RaspBee by dresden elektronik
-url: https://github.com/home-assistant/addons/tree/master/deconz
+url: https://github.com/home-assistant/app-deconz
 apparmor: false
 arch:
   - amd64
@@ -17,7 +17,7 @@ discovery:
   - deconz
 gpio: true
 homeassistant: 0.91.2
-image: homeassistant/{arch}-addon-deconz
+image: ghcr.io/home-assistant/app-deconz
 ingress: true
 ingress_entry: ingress.html
 init: false
