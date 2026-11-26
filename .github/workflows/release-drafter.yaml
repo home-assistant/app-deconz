@@ -13,4 +13,4 @@ permissions:
 
 jobs:
   release-drafter:
-    uses: home-assistant/workflows/.github/workflows/app-release-drafter.yaml@060f22808cea73e58d750001adae1fd02077ec78 # v0.1.2
+    uses: home-assistant/workflows/.github/workflows/app-release-drafter.yaml@f8d490cb29e4cd0baa2f7fde1f9d0c59774cc0db # v0.2.0
