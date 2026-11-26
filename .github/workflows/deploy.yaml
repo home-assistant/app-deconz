@@ -18,7 +18,7 @@ jobs:
     permissions:
       contents: read
       security-events: write
-    uses: home-assistant/workflows/.github/workflows/app-ci.yaml@060f22808cea73e58d750001adae1fd02077ec78 # v0.1.2
+    uses: home-assistant/workflows/.github/workflows/app-ci.yaml@f8d490cb29e4cd0baa2f7fde1f9d0c59774cc0db # v0.2.0
 
   deploy:
     needs: ci
@@ -26,7 +26,7 @@ jobs:
       contents: read
       id-token: write
       packages: write
-    uses: home-assistant/workflows/.github/workflows/app-deploy.yaml@060f22808cea73e58d750001adae1fd02077ec78 # v0.1.2
+    uses: home-assistant/workflows/.github/workflows/app-deploy.yaml@f8d490cb29e4cd0baa2f7fde1f9d0c59774cc0db # v0.2.0
     with:
       repository: apps
       repository_edge: "apps-dev"
