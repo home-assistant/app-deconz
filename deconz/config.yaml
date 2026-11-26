@@ -51,5 +51,6 @@ schema:
   dbg_error: int(0,2)?
   dbg_http: int(0,1)?
 startup: services
+timeout: 120
 udev: true
 usb: true
