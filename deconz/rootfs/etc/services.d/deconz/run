@@ -14,7 +14,7 @@ DECONZ_DEVICE=$(bashio::config 'device')
 
 # VNC is not enabled as a separate service, as it cannot handle multiple
 # session when running in the foreground.
-VNC_PORT="$(bashio::addon.port 5900)"
+VNC_PORT="$(bashio::app.port 5900)"
 ARCH="$(bashio::info.arch)"
 
 # Fix tigervnc for 64 bits ARM
@@ -48,10 +48,10 @@ bashio::log.info "deCONZ waiting for VNC to start"
 bashio::net.wait_for 5900
 
 # Delete unused key
-options=$(bashio::addon.options)
+options=$(bashio::app.options)
 if bashio::jq.exists "${options}" ".dbg_otau"; then
     bashio::log.info "Removing dbg_otau"
-    bashio::addon.option "dbg_otau"
+    bashio::app.option "dbg_otau"
 fi
 
 # Load debug values
